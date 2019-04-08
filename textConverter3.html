@@ -1,0 +1,113 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/styleSheets/converter.css"/> 
+    <!-- <script type="text/javascript" src="converter.js"></script>   -->
+    <title>Convert your Text</title>
+</head>
+<body>
+<h1 id="d1">Encode your sentence to Binary, Octal, or Hex</h1>
+
+<div class="form">
+    <form method="POST" action="converter3.php">
+        <h3 id="d2">Please enter a sentence to encode</h3>
+        <input id="textBox" type="text" name="toConvert"><br><br>
+
+        <h3 id="d3">What do you want your sentence encoded in?</h3>
+        <div id="radioButtons">
+            <input type="radio" name="lang" value="binary" id="binary"> Binary<br>
+            <input type="radio" name="lang" value="oct" id="oct"> Octal<br>
+            <input type="radio" name="lang" value="hex" id="hex"> Hex<br><br>
+        </div>
+        <input id="convertButton" type="button" name="submitButton" value="Convert">
+
+    </form>
+<div id="convertedSentence"></div>
+
+
+
+
+</div>
+</body>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#convertButton").on('click', function() {
+        var sTC = $("#textBox").val();
+        var userPick = $('input[name=lang]:checked').val();
+
+        $.ajax(
+            {
+                type: "POST",
+                url: "converter3.php",
+                data: {
+                    convertButton: 1,
+                    userSentencePHP: sTC,
+                    langPHP: userPick
+                    
+                },
+                
+                success: function(response) {
+                    console.log(response);
+                    $("#convertedSentence").text(response);
+                    
+                },
+                dataType: 'text'
+
+            }
+        );
+    });
+    
+});
+
+
+
+
+
+
+/*
+console.log("Got to here");
+$(document).ready(function() {
+    $("#convertButton").on('click', function() {
+        var sTC = $("#textBox").val();
+
+        if ($("#binary").checked==true) {
+             var userPick = $("#binary").val();
+        }
+        else if ($("#oct").checked==true) {
+             var userPick = $("#oct").val();
+        }
+        else if ($("#hex").checked==true) {
+             var userPick = $("#hex").val();
+        }
+        else {
+
+        }
+        
+        console.log("Got to here");
+
+        $.ajax(
+            {
+                url: converter3.php
+                data: {
+                    convertButton: 1,
+                    userSentencePHP: sTc,
+                    langPHP: userPick
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                dataType: 'text'
+                }
+        
+            );
+        
+    });
+
+});
+*/
+
+
+
+</script>
+
+</html>
